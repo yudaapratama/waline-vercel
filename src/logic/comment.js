@@ -252,7 +252,7 @@ module.exports = class extends Base {
     const { like } = this.post();
 
     // 1. like
-    if (think.isBoolean(like)) {
+    if (!think.isEmpty(userInfo) && think.isBoolean(like)) {
       this.rules = {
         like: {
           required: true,
