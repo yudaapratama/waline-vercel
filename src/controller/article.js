@@ -64,6 +64,9 @@ module.exports = class extends BaseRest {
       data.push(counters);
     }
 
+		const totalReaction = Object.values(data[0]).reduce((a, b) => a + b, 0);
+		data[0] = { ...data[0], totalReaction };
+
     return this.jsonOrSuccess(path.length === 1 && deprecated ? data[0] : data);
   }
 
