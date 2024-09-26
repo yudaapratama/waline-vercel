@@ -61,7 +61,7 @@ const getMarkdownParser = () => {
   }
 
 	markdownIt.use(spoilerPlugin);
-	markdownIt.use(spoiler);
+	markdownIt.use(spoiler, true);
 
   return (content) => sanitize(markdownIt.render(content));
 };
