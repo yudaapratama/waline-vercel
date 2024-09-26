@@ -7,6 +7,7 @@ const emojiPlugin = require('markdown-it-emoji');
 const { resolveHighlighter } = require('./highlight.js');
 const { mathjaxPlugin } = require('./mathjax.js');
 const { sanitize } = require('./xss.js');
+const spoiler_plugin = require('./markdown-it-spoiler.js');
 
 const getMarkdownParser = () => {
   const { markdown = {} } = think.config();
@@ -57,6 +58,8 @@ const getMarkdownParser = () => {
   } else if (tex !== false) {
     markdownIt.use(mathjaxPlugin, mathjax);
   }
+
+	markdownIt.use(spoiler_plugin);
 
   return (content) => sanitize(markdownIt.render(content));
 };
