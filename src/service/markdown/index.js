@@ -60,7 +60,7 @@ const getMarkdownParser = () => {
     markdownIt.use(mathjaxPlugin, mathjax);
   }
 
-	markdownIt.use(spoilerPlugin);
+	// markdownIt.use(spoilerPlugin);
 	markdownIt.use(spoiler);
 
   return (content) => sanitize(markdownIt.render(content));
