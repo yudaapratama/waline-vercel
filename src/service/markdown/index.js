@@ -8,7 +8,7 @@ const spoiler = require('@traptitech/markdown-it-spoiler');
 const { resolveHighlighter } = require('./highlight.js');
 const { mathjaxPlugin } = require('./mathjax.js');
 const { sanitize } = require('./xss.js');
-const spoilerPlugin = require('./markdown-it-spoiler.js');
+const spoilerPlugin = require('./block-spoiler.js');
 
 const getMarkdownParser = () => {
   const { markdown = {} } = think.config();
@@ -60,8 +60,8 @@ const getMarkdownParser = () => {
     markdownIt.use(mathjaxPlugin, mathjax);
   }
 
-	markdownIt.use(spoilerPlugin);
-	markdownIt.use(spoiler, false);
+	// markdownIt.use(spoilerPlugin);
+	// markdownIt.use(spoiler, false);
 
   return (content) => sanitize(markdownIt.render(content));
 };
