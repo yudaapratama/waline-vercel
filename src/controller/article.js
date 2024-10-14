@@ -28,6 +28,9 @@ module.exports = class extends BaseRest {
             }, {}),
       );
 
+			const totalReaction = Object.values(counters[0]).reduce((a, b) => a + b, 0);
+			counters[0] = { ...counters[0], totalReaction };
+			
       // - deprecated:
       //   - single path and single type: 0
       //   - single path and multiple type: {[type]: 0}
@@ -65,6 +68,7 @@ module.exports = class extends BaseRest {
     }
 
 		const totalReaction = Object.values(data[0]).reduce((a, b) => a + b, 0);
+		
 		data[0] = { ...data[0], totalReaction };
 
     return this.jsonOrSuccess(path.length === 1 && deprecated ? data[0] : data);

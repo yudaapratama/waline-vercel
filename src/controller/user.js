@@ -252,6 +252,12 @@ module.exports = class extends BaseRest {
         continue;
       }
 
+			const findUser = usersMap[count.user_id]
+			let findUserAvatar = []
+			if(!think.isEmpty(findUser)) {
+				findUserAvatar = findUser.filter(user => user.objectId === count.user_id)
+			}
+
       const comments = await commentModel.select(
         { mail: count.mail },
         { limit: 1 },
@@ -266,7 +272,10 @@ module.exports = class extends BaseRest {
         continue;
       }
       const { nick, link } = comment;
-      const avatarUrl = await think.service('avatar').stringify(comment);
+      const avatarUrl = think.isEmpty(findUser) 
+			? await think.service('avatar').stringify(comment) 
+			: findUserAvatar[0].avatar;
+			
       const avatar =
         avatarProxy && !avatarUrl.includes(avatarProxy)
           ? avatarProxy + '?url=' + encodeURIComponent(avatarUrl)
