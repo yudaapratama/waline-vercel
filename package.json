@@ -15,6 +15,7 @@
   "license": "MIT",
   "author": "lizheming <i@imnerd.org>",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.670.0",
     "@cloudbase/node-sdk": "^3.0.1",
     "@koa/cors": "^5.0.0",
     "@mdit/plugin-katex": "0.8.0",
