@@ -5,7 +5,7 @@ const s3Key = {
 	endpoint: process.env.APP_S3_ENDPOINT,
 	accessKeyId: process.env.APP_S3_ACCESS_KEY_ID,
 	secretAccessKey: process.env.APP_S3_SECRET_ACCESS_KEY,
-	customDomain: process.env.APP_S3_CUSTOM_DOMAIN,
+	customDomain: process.env.APP_CUSTOM_DOMAIN,
 }
 
 module.exports = class extends think.Service {

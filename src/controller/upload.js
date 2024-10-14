@@ -1,24 +1,40 @@
 const BaseRest = require('./rest.js');
 const { PutObjectCommand } = require('@aws-sdk/client-s3')
-const fs = require('fs')
 
 module.exports = class extends BaseRest {
-  constructor(ctx) {
-    super(ctx);
-    this.modelInstance = this.getModel('Users');
+  constructor(...args) {
+    super(...args);
   }
 
-  async postAction() {
-    const { path } = this.post();
+  async putAction() {
 		const { file } = this.file()
+		const s3instance = await think.service('s3client').s3Instance();
+		const customDomain = await think.service('s3client').customDomain();
+		
+		const randomHash = crypto.randomBytes(15).toString('hex')
+		const fileExtension = file.name.split('.').pop()
+		
+		const key = `profile/${randomHash}.${fileExtension}`;
+		
+		const uploadParams = {
+			Bucket: 'backup', 
+			Key: key,
+			Body: file, 
+			ContentType: file.type, 
+		};
+			
+		try {
+			const command = new PutObjectCommand(uploadParams);
+			await s3instance.send(command);
 
-		// const s3instance = think.service('s3client').s3instance();
-		const customDomain = think.service('s3client').customDomain();
+		} catch (error) {
+			return this.fail(`Failed to upload, error: ${error.message}`)
+		}
+			
+		const fileUrl = `${customDomain}/${key}`;
+		return this.success({
+			url: fileUrl
+		});
 
-		console.log(customDomain)
-
-    return this.jsonOrSuccess({ success: true });
-  }
-
-	
+	}	
 };
