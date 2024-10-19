@@ -13,9 +13,9 @@ module.exports = class extends think.Controller {
     </head>
     <body>
       <div id="waline" style="max-width: 800px;margin: 0 auto;"></div>
-      <link href='//unpkg.com/@waline/client@v3/dist/waline.css' rel='stylesheet' />
+      <link href='https://cdn.jsdelivr.net/gh/yudaapratama/waline-client@v4.0.0/dist/waline.css' rel='stylesheet' />
       <script type="module">
-        import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+        import { init } from 'https://cdn.jsdelivr.net/gh/yudaapratama/waline-client@v4.0.0/dist/waline.js';
 
         console.log(
           '%c @waline/server %c v${version} ',
@@ -25,6 +25,7 @@ module.exports = class extends think.Controller {
         const params = new URLSearchParams(location.search.slice(1));
         const waline = init({
           el: '#waline',
+					reaction: true,
           path: params.get('path') || '/',
           lang: params.get('lng') || undefined,
           serverURL: location.protocol + '//' + location.host + location.pathname.replace(/\\/+$/, ''),
