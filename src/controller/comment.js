@@ -118,6 +118,10 @@ module.exports = class extends BaseRest {
 
     const { userInfo } = this.ctx.state;
 
+		if(userInfo.is_banned) {
+			return this.fail(1001, 'You have been banned by admin.');
+		}
+
     if (!userInfo || userInfo.type !== 'administrator') {
       /** IP disallowList */
       const { disallowIPList } = this.config();
@@ -279,6 +283,11 @@ module.exports = class extends BaseRest {
 
   async putAction() {
     const { userInfo } = this.ctx.state;
+
+		if(userInfo.is_banned) {
+			return this.fail('You have been banned by admin.');
+		}
+
     const isAdmin = userInfo.type === 'administrator';
     let data = isAdmin ? this.post() : this.post('comment,like');
     let oldData = await this.modelInstance.select({ objectId: this.id });

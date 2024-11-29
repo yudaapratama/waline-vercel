@@ -28,6 +28,10 @@ module.exports = class extends BaseRest {
       return this.fail();
     }
 
+		if(user[0].is_banned) {
+			return this.fail(1001, 'User is banned');
+		}
+
     const twoFactorAuthSecret = user[0]['2fa'];
 
     if (twoFactorAuthSecret) {

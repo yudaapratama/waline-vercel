@@ -125,7 +125,7 @@ module.exports = class extends BaseRest {
   }
 
   async putAction() {
-    const { display_name, url, avatar, password, type, label } = this.post();
+    const { display_name, url, avatar, password, type, label, is_banned } = this.post();
     const { objectId } = this.ctx.state.userInfo;
     const twoFactorAuth = this.post('2fa');
 
@@ -154,6 +154,10 @@ module.exports = class extends BaseRest {
     if (password) {
       updateData.password = this.hashPassword(password);
     }
+
+		if(typeof is_banned !== 'undefined') {
+			updateData.is_banned = is_banned;
+		}
 
     if (think.isString(twoFactorAuth)) {
       updateData['2fa'] = twoFactorAuth;

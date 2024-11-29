@@ -64,6 +64,15 @@ module.exports = class extends think.Controller {
     const userBySocial = await this.modelInstance.select({ [type]: user.id });
 
     if (!think.isEmpty(userBySocial)) {
+
+			if(userBySocial[0].is_banned) {
+				return this.redirect('/ui/banned');
+			}
+
+			if(userBySocial[0].is_banned) {
+				return this.fail(1001, 'Your account has been banned.');
+			}
+
       const token = jwt.sign(userBySocial[0].email, this.config('jwtKey'));
 
       if (redirect) {
@@ -113,7 +122,11 @@ module.exports = class extends think.Controller {
     } else {
       const updateData = { [type]: user.id };
 
-      if (!userByEmail.avatar && user.avatar) {
+			if(userByEmail[0].is_banned) {
+				return this.redirect('/ui/banned');
+			}
+
+      if (!userByEmail[0].avatar && user.avatar) {
         updateData.avatar = user.avatar;
       }
       await this.modelInstance.update(updateData, { email: user.email });
