@@ -69,10 +69,6 @@ module.exports = class extends think.Controller {
 				return this.redirect('/ui/banned');
 			}
 
-			if(userBySocial[0].is_banned) {
-				return this.fail(1001, 'Your account has been banned.');
-			}
-
       const token = jwt.sign(userBySocial[0].email, this.config('jwtKey'));
 
       if (redirect) {
