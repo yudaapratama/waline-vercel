@@ -737,12 +737,12 @@ module.exports = class extends BaseRest {
   }
 
   async getCommentCount() {
-    const { url, userId } = this.get();
+    const { url, mail } = this.get();
     const { userInfo } = this.ctx.state;
     const where = Array.isArray(url) && url.length ? { url: ['IN', url] } : {};
 
-		if(userId) {
-			where.user_id = userId;
+		if(mail) {
+			where.mail = mail;
 		}
 		
     if (think.isEmpty(userInfo) || this.config('storage') === 'deta') {
