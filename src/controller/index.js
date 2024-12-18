@@ -11,11 +11,11 @@ module.exports = class extends think.Controller {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Waline Example</title>
     </head>
-    <body>
+    <body style="background-color: #070403;">
       <div id="waline" style="max-width: 800px;margin: 0 auto;"></div>
-      <link href='https://cdn.jsdelivr.net/gh/yudaapratama/waline-client@v4.1.0/dist/waline.css' rel='stylesheet' />
+      <link href='https://cdn.jsdelivr.net/gh/yudaapratama/waline-client@v4.2.0/dist/waline.css' rel='stylesheet' />
       <script type="module">
-        import { init } from 'https://cdn.jsdelivr.net/gh/yudaapratama/waline-client@v4.1.0/dist/waline.js';
+        import { init } from 'https://cdn.jsdelivr.net/gh/yudaapratama/waline-client@v4.2.0/dist/waline.js';
 
         console.log(
           '%c @waline/server %c v${version} ',
@@ -26,6 +26,7 @@ module.exports = class extends think.Controller {
         const waline = init({
           el: '#waline',
 					reaction: true,
+					dark: true,
           path: params.get('path') || '/',
           lang: params.get('lng') || undefined,
           serverURL: location.protocol + '//' + location.host + location.pathname.replace(/\\/+$/, ''),
