@@ -673,9 +673,13 @@ module.exports = class extends BaseRest {
   }
 
   async getRecentCommentList() {
-    const { count } = this.get();
+    const { count, mail } = this.get();
     const { userInfo } = this.ctx.state;
     const where = {};
+
+		if(mail) {
+			where.mail = mail;
+		}
 
     if (think.isEmpty(userInfo) || this.config('storage') === 'deta') {
       where.status = ['NOT IN', ['waiting', 'spam']];
