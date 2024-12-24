@@ -18,8 +18,7 @@ module.exports = class extends BaseRest {
     }
 
 		if (keyword) {
-      // where['display_name|email'] = ['LIKE', `%${keyword}%`];
-      where.display_name = ['LIKE', `%${keyword}%`];
+      where['display_name|email'] = ['LIKE', `%${keyword}%`];
     }
 
     if (email) {
