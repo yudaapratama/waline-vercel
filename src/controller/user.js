@@ -9,6 +9,7 @@ module.exports = class extends BaseRest {
   async getAction() {
     const { page, pageSize, email, keyword } = this.get();
     const { userInfo } = this.ctx.state;
+		const where = {};
 
     if (think.isEmpty(userInfo) || userInfo.type !== 'administrator') {
       const users = await this.getUsersListByCount();
