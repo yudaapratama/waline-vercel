@@ -7,13 +7,18 @@ module.exports = class extends BaseRest {
   }
 
   async getAction() {
-    const { page, pageSize, email } = this.get();
+    const { page, pageSize, email, keyword } = this.get();
     const { userInfo } = this.ctx.state;
 
     if (think.isEmpty(userInfo) || userInfo.type !== 'administrator') {
       const users = await this.getUsersListByCount();
 
       return this.success(users);
+    }
+
+		if (keyword) {
+      // where['display_name|email'] = ['LIKE', `%${keyword}%`];
+      where.display_name = ['LIKE', `%${keyword}%`];
     }
 
     if (email) {
@@ -26,9 +31,9 @@ module.exports = class extends BaseRest {
       return this.success(user[0]);
     }
 
-    const count = await this.modelInstance.count({});
+    const count = await this.modelInstance.count(where);
     const users = await this.modelInstance.select(
-      {},
+      where,
       {
         desc: 'createdAt',
         limit: pageSize,
